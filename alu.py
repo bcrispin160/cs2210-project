@@ -140,17 +140,24 @@ class Alu:
         self._update_arith_flags_sub(a, b, result)
         return result
 
+    # TODO may need to update logic? flags for _and and _or
     def _and(self, a, b):
         """
         Bitwise AND
         """
-        pass  # replace pass with correct implementation
+        a = a & WORD_MASK
+        b = b & WORD_MASK
+        result = (a & b) & WORD_MASK
+        return result
 
     def _or(self, a, b):
         """
         Bitwise OR
         """
-        pass  # replace pass with correct implementation
+        a = a & WORD_MASK
+        b = b & WORD_MASK
+        result = (a | b) & WORD_MASK
+        return result
 
     def _shft(self, a, b):
         """
@@ -163,7 +170,18 @@ class Alu:
         """
         a &= WORD_MASK  # Keep this line as is
 
-        # Replace these two lines with a complete implementation
+        # Replace these lines with a complete implementation
+        if b > 0:
+            pass
+            #shft left
+        elif b < 0:
+            pass
+            #shft right
+        else:
+            # no shift
+            pass
+
+        # TODO set result = , bit_out =
         result = 0
         bit_out = 0
 
@@ -202,7 +220,7 @@ class Alu:
             self._flags |= V_FLAG
 
     def _update_arith_flags_sub(self, a, b, result):
-        pass  # replace pass with correct implementation
+        pass # replace pass with correct implementation
 
     def _update_shift_flags(self, result, bit_out):
         pass  # replace pass with correct implementation
