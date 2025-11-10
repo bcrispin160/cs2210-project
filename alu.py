@@ -140,7 +140,7 @@ class Alu:
         self._update_arith_flags_sub(a, b, result)
         return result
 
-    # TODO may need to update logic? flags for _and and _or
+    # TODO need to update logic flags for _and and _or
     def _and(self, a, b):
         """
         Bitwise AND
@@ -148,6 +148,7 @@ class Alu:
         a = a & WORD_MASK
         b = b & WORD_MASK
         result = (a & b) & WORD_MASK
+        self._update_logic_flags(result)
         return result
 
     def _or(self, a, b):
@@ -157,6 +158,7 @@ class Alu:
         a = a & WORD_MASK
         b = b & WORD_MASK
         result = (a | b) & WORD_MASK
+        self._update_logic_flags(result)
         return result
 
     def _shft(self, a, b):
@@ -170,13 +172,14 @@ class Alu:
         """
         a &= WORD_MASK  # Keep this line as is
 
-        # Replace these lines with a complete implementation
+        # TODO fix
         if b > 0:
             # shft left
             result = (a << b) & WORD_MASK
             # get bit_out (MSB)
             bit_out = (a >> (WORD_SIZE - b)) & WORD_MASK
         elif b < 0:
+            b = -1 * b
             # shft right
             result = (a >> b) & WORD_MASK
             # get bit_out (LSB)
@@ -200,7 +203,10 @@ class Alu:
         return x
 
     def _update_logic_flags(self, result):
-        pass  # replace pass with correct implementation
+        if result == 0:
+            self._flags |= Z_FLAG
+        if result & (1 << (WORD_SIZE - 1)):
+            self._flags |= N_FLAG
 
     def _update_arith_flags_add(self, a, b, result):
         """
