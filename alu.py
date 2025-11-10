@@ -172,18 +172,18 @@ class Alu:
 
         # Replace these lines with a complete implementation
         if b > 0:
-            pass
-            #shft left
+            # shft left
+            result = (a << b) & WORD_MASK
+            # get bit_out (MSB)
+            bit_out = (a >> (WORD_SIZE - b)) & WORD_MASK
         elif b < 0:
-            pass
-            #shft right
+            # shft right
+            result = (a >> b) & WORD_MASK
+            # get bit_out (LSB)
+            bit_out =  (a << (WORD_SIZE - b)) & WORD_MASK
         else:
-            # no shift
-            pass
-
-        # TODO set result = , bit_out =
-        result = 0
-        bit_out = 0
+            result = a
+            bit_out = 0
 
         # Keep these last two lines as they are
         self._update_shift_flags(result, bit_out)
