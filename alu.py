@@ -22,6 +22,7 @@ instructions are needed for setting flags).
     - For similarity with ARM architecture carry is set on a SUB
       if the minuend is larger than the subtrahend, e.g., with
       5 - 2 = 3, 5 is the minuend, and 2 is the subtrahend.
+
     - On a left shift, the carry flag is set to the value of the last
       bit shifted out. So, for example, in four bits, `0b1001 << 1`
       would set the carry flag to 1. However, `0b1001 << 2` would set
@@ -171,19 +172,19 @@ class Alu:
         last bit shifted out. This is used to set the carry flag.
         """
         a &= WORD_MASK  # Keep this line as is
+        b &= 0b1111 # can only shift a maximum of 16 bits
 
-        # TODO fix
         if b > 0:
             # shft left
             result = (a << b) & WORD_MASK
             # get bit_out (MSB)
-            bit_out = (a >> (WORD_SIZE - b)) & WORD_MASK
+            bit_out = (a >> (WORD_SIZE - b)) & 1
         elif b < 0:
             b = -1 * b
             # shft right
             result = (a >> b) & WORD_MASK
             # get bit_out (LSB)
-            bit_out =  (a << (WORD_SIZE - b)) & WORD_MASK
+            bit_out =  (a << (WORD_SIZE() - b)) & 1
         else:
             result = a
             bit_out = 0
@@ -226,7 +227,15 @@ class Alu:
             self._flags |= V_FLAG
 
     def _update_arith_flags_sub(self, a, b, result):
-        pass # replace pass with correct implementation
+        if result & (1 << (WORD_SIZE - 1)):
+            self._flags |= N_FLAG
+        if result == 0:
+            self._flags |= Z_FLAG
+        if (result > WORD_MASK) | (b > a):
+            self._flags |= C_FLAG
 
     def _update_shift_flags(self, result, bit_out):
-        pass  # replace pass with correct implementation
+        if bit_out:
+            self._flags |= Z_FLAG
+
+
