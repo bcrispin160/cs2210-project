@@ -181,17 +181,25 @@ class Alu:
         b = self._to_signed(b)
 
         if b > 0:
-            # shft left
             result = (a << b) & WORD_MASK
-            bit_out = ((b & 1) % 4)
+            if b >= WORD_SIZE:
+                # all bits are shifted out so the bit_out is the original MSB
+                bit_out = (a >> (WORD_SIZE - 1)) & 1
+            else:
+                # shft left
+                bit_out = (a >> (WORD_SIZE - b)) & 1
         elif b < 0:
             b = -1 * b
-            # shft right
             result = (a >> b) & WORD_MASK
-            bit_out = ((b & 1) % 4)
+            if b >= WORD_SIZE:
+                # all bits shifted out so bit_out is the original LSB
+                bit_out = a & 1
+            else:
+                # shft right
+                bit_out = (a >> (b - 1)) & 1
         else:
             result = a
-            bit_out = ((b & 1) % 4)
+            bit_out = 0
 
         # Keep these last two lines as they are
         self._update_shift_flags(result, bit_out)
