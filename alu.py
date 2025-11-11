@@ -179,24 +179,27 @@ class Alu:
         """
         a &= WORD_MASK  # Keep this line as is
         b = self._to_signed(b)
-
+        b &= 0b1111
         if b > 0:
-            result = (a << b) & WORD_MASK
-            if b >= WORD_SIZE:
+            # shft left
+            if b > WORD_SIZE:
                 # all bits are shifted out so the bit_out is the original MSB
                 bit_out = (a >> (WORD_SIZE - 1)) & 1
+                result = 0
             else:
-                # shft left
                 bit_out = (a >> (WORD_SIZE - b)) & 1
+                result = (a << b) & WORD_MASK
         elif b < 0:
+            # shft right
             b = -1 * b
-            result = (a >> b) & WORD_MASK
-            if b >= WORD_SIZE:
+            if b > WORD_SIZE:
                 # all bits shifted out so bit_out is the original LSB
                 bit_out = a & 1
+                result = 0
             else:
                 # shft right
                 bit_out = (a >> (b - 1)) & 1
+                result = (a >> b) & WORD_MASK
         else:
             result = a
             bit_out = 0
