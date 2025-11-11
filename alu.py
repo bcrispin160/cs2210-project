@@ -38,6 +38,12 @@ instructions are needed for setting flags).
 - Overflow only applies to arithmetic operations.
 """
 
+
+"""
+Brynlee Maya Crispin & Greta Albrecht
+CS 2210 Computer Organization
+"""
+
 from constants import WORD_SIZE, WORD_MASK
 
 N_FLAG = 0b1000
@@ -177,17 +183,16 @@ class Alu:
         if b > 0:
             # shft left
             result = (a << b) & WORD_MASK
-            # TODO get bit_out
-            bit_out = 0
+            bit_out = ((b & 1) % 4)
+            #bit_out = 0
         elif b < 0:
             b = -1 * b
             # shft right
             result = (a >> b) & WORD_MASK
-            # TODO get bit_out
-            bit_out = 0
+            bit_out = ((b & 1) % 4)
         else:
             result = a
-            bit_out = 0
+            bit_out = ((b & 1) % 4)
 
         # Keep these last two lines as they are
         self._update_shift_flags(result, bit_out)
@@ -243,4 +248,6 @@ class Alu:
         if result == 0:
             self._flags |= Z_FLAG
 
-        # TODO overflow
+        
+        
+
