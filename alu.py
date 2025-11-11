@@ -19,6 +19,7 @@ instructions are needed for setting flags).
 
 - Carry flag under the following conditions:
     - If an arithmetic operation is used and a bit is carried out.
+
     - For similarity with ARM architecture carry is set on a SUB
       if the minuend is larger than the subtrahend, e.g., with
       5 - 2 = 3, 5 is the minuend, and 2 is the subtrahend.
@@ -66,7 +67,7 @@ class Alu:
         """
         Decode control signal to determine operation.
         """
-        c = c & 0b111 # ensure only three bits are used
+        c = c & 0b111  # ensure only three bits are used
         match c:
             case 0b000:
                 self._op = "ADD"
@@ -243,8 +244,3 @@ class Alu:
             self._flags |= Z_FLAG
 
         # TODO overflow
-
-
-
-
-
