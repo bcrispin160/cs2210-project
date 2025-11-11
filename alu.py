@@ -184,7 +184,6 @@ class Alu:
             # shft left
             result = (a << b) & WORD_MASK
             bit_out = ((b & 1) % 4)
-            #bit_out = 0
         elif b < 0:
             b = -1 * b
             # shft right
@@ -239,6 +238,11 @@ class Alu:
         if result == 0:
             self._flags |= Z_FLAG
             self._flags |= C_FLAG
+        sa, sb, sr = ((a >> (WORD_SIZE - 1)) & 1,
+                      (b >> (WORD_SIZE - 1)) & 1,
+                      (result >> (WORD_SIZE - 1)) & 1)
+        if sa != sb and sr != sa:
+            self._flags |= V_FLAG
 
     def _update_shift_flags(self, result, bit_out):
         if bit_out:
