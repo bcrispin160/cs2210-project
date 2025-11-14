@@ -29,8 +29,7 @@ class Register:
         self.value = 0
 
     def read(self):
-        # Just a getter for value. Replace `pass` below.
-        pass
+        return self.name
 
     def write(self, value):
         # Registers themselves don't know about write enable. It's the register
@@ -151,3 +150,4 @@ if __name__ == "__main__":
     rf.execute(rd=4, data=0xABCD, write_enable=True)
 
     print(rf)
+
