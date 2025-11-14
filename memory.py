@@ -42,7 +42,12 @@ class Memory:
         # Make sure `addr` is OK by calling `_check_addr`. If OK, return value
         # from `_cells` or default if never written. (Hint: use `.get()`.)
         # Replace `pass` below.
-        pass
+        
+        if (_check_addr())
+            return self._cells
+        else
+            return
+
 
     def write(self, addr, value):
         """
@@ -143,3 +148,4 @@ if __name__ == "__main__":
     for cell in dm.hexdump(start=0x00F0):
         print(cell)
     print()
+
