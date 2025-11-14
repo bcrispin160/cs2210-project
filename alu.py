@@ -178,34 +178,22 @@ class Alu:
         last bit shifted out. This is used to set the carry flag.
         """
         a &= WORD_MASK  # Keep this line as is
-        b = self._to_signed(b)
-        if b > 0:
-            b &= 0b1111
-            # shft left
-            if b > WORD_SIZE:
-                # all bits are shifted out so the bit_out is the original MSB
-                bit_out = (a >> (WORD_SIZE - 1)) & 1
-                result = 0
-            else:
-                bit_out = (a >> (WORD_SIZE - b)) & 1
-                result = (a << b) & WORD_MASK
-        elif b < 0:
-            # shft right
-            if -b > WORD_SIZE:
-                # all bits shifted out so bit_out is the original LSB
-                bit_out = a & 1
-                result = 0
-            elif b == 1:
-                bit_out = a & 1
-                result = (a >> b) & WORD_MASK
-            else:
-                # shft right
-                # bit_out is b-th LSB
-                bit_out = (a >> (b - 1)) & 1
-                result = (a >> b) & WORD_MASK
-        else:
+        direction = (b >> (WORD_SIZE - 1) & 1)
+        b &= 0b1111
+        if b == 0:
             result = a
             bit_out = 0
+        elif direction == 0:
+            b &= 0b1111
+            # shft left
+            bit_out = (a >> (WORD_SIZE - b)) & 1
+            result = (a << b) & WORD_MASK
+        elif direction == 1:
+            b &= 0b1111
+            # shft right
+            # bit_out is b-th LSB
+            bit_out = (a >> (b - 1)) & 1
+            result = (a >> b) & WORD_MASK
 
         # Keep these last two lines as they are
         self._update_shift_flags(result, bit_out)
