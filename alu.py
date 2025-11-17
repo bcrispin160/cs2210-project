@@ -191,7 +191,6 @@ class Alu:
         elif direction == 1:
             b &= 0b1111
             # shft right
-            # bit_out is b-th LSB
             bit_out = (a >> (b - 1)) & 1
             result = (a >> b) & WORD_MASK
 
@@ -253,7 +252,3 @@ class Alu:
             self._flags |= N_FLAG
         if result == 0:
             self._flags |= Z_FLAG
-
-        
-        
-
