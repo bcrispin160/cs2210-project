@@ -27,10 +27,7 @@ class Memory:
     def _check_addr(self, address):
         # Make sure address is positive, in the desired range,
         # otherwise raise a `ValueError`. Replace `pass` below.
-        try:
-            pass
-        except ValueError:
-            print(f'Address {address} is negative.')
+        pass
 
     def write_enable(self, b):
         # Make sure `b` is a Boolean (hint: use `isinstance()).
@@ -45,12 +42,7 @@ class Memory:
         # Make sure `addr` is OK by calling `_check_addr`. If OK, return value
         # from `_cells` or default if never written. (Hint: use `.get()`.)
         # Replace `pass` below.
-        
-        if (_check_addr())
-            return self._cells
-        else
-            return
-
+        pass
 
     def write(self, addr, value):
         """
@@ -151,4 +143,3 @@ if __name__ == "__main__":
     for cell in dm.hexdump(start=0x00F0):
         print(cell)
     print()
-
