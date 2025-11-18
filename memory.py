@@ -12,8 +12,9 @@ First released: 2025-11-10
   Revision: 2025-11-12
   - Moved definition of `STACK_BASE` to `constants.py`.
 """
+from xmlrpc.client import Boolean
 
-from constants import STACK_BASE, WORD_SIZE
+from constants import STACK_BASE, WORD_SIZE, WORD_MASK
 
 
 class Memory:
@@ -29,14 +30,17 @@ class Memory:
         # otherwise raise a `ValueError`. Replace `pass` below.
         if address < 0:
             raise ValueError("Negative address.")
-        if address > WORD_SIZE:
+        if address > 0xFFFF:
             raise ValueError("Address out of range.")
 
     def write_enable(self, b):
         # Make sure `b` is a Boolean (hint: use `isinstance()).
         # If not, raise `TypeError`. If OK, then set
         # `_write_enable` accordingly. Replace `pass` below.
-        pass
+        if not isinstance(b, Boolean):
+            raise TypeError("Not a Boolean.")
+        else:
+            return b
 
     def read(self, addr):
         """
@@ -55,7 +59,11 @@ class Memory:
         # Otherwise, call `_check_addr()`. If OK, write masked value to the
         # selected address, then turn off `_write_enable` when done. Return
         # `True` on success. Replace `pass` below.
-        pass
+        if not self._write_enable:
+            raise RuntimeError("_write_enable False")
+        self._check_addr(addr)
+        # TODO: write masked value to selected address
+        self.write_enable(False)
         return True
 
     def hexdump(self, start=0, stop=None, width=8):
