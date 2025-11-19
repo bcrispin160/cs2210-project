@@ -37,7 +37,11 @@ class Register:
         # should reject values that are too wide (too many bits). Use class
         # constants here, and raise `ValueError` on bad value, otherwise set
         # the value field. Replace `pass` below.
-        pass
+
+        if value > self.MAX_VALUE | value < self.MIN_VALUE:
+            raise ValueError("Bad value.")
+        else:
+            self.value = value
 
     def __repr__(self):
         return f"{self.name}: {self.value:04X}"
