@@ -29,7 +29,7 @@ class Register:
         self.value = 0
 
     def read(self):
-        return f"{self.name}: {self.value}"
+        return self.value
 
     def write(self, value):
         # Registers themselves don't know about write enable. It's the register
@@ -60,7 +60,7 @@ class RegisterFile:
         # register objects and include them in a list `self.registers`. Note:
         # register objects should each get a unique name, R0, R1, R2, etc.
         # apart from their index in the list. Replace `pass` below.
-        self.registers = {
+        self.registers = [
              Register("R0"),
              Register("R1"),
              Register("R2"),
@@ -69,7 +69,7 @@ class RegisterFile:
              Register("R5"),
              Register("R6"),
              Register("R7"),
-             }
+             ]
 
     def _check_index(self, idx):
         """
@@ -142,7 +142,7 @@ class RegisterFile:
         if data is None:
             raise TypeError("Cannot write; no data!")
         self._check_index(rd)
-            # TODO write to register here once __init__ is finished
+        self.registers[rd].write(data)
 
     def execute(self, rd=None, ra=None, rb=None, data=None, write_enable=False):
         """
@@ -172,4 +172,3 @@ if __name__ == "__main__":
     rf.execute(rd=4, data=0xABCD, write_enable=True)
 
     print(rf)
-
