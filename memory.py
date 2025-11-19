@@ -51,7 +51,7 @@ class Memory:
         # Make sure `addr` is OK by calling `_check_addr`. If OK, return value
         # from `_cells` or default if never written. (Hint: use `.get()`.)
         # Replace `pass` below.
-        self._check_addr()
+        self._check_addr(addr)
         return self._cells.get(addr, 0)
 
     def write(self, addr, value):
