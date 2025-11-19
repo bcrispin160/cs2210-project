@@ -8,6 +8,8 @@ These do not include special-purpose registers elsewhere in the CPU:
 CS 2210 Computer Organization
 Clayton Cafiero <cbcafier@uvm.edu>
 
+Brynlee Maya Crispin and Greta Albrecht
+
 """
 
 from constants import WORD_SIZE
