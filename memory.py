@@ -11,6 +11,8 @@ First released: 2025-11-10
   - Added `return True` to all write methods and write stubs.
   Revision: 2025-11-12
   - Moved definition of `STACK_BASE` to `constants.py`.
+
+Brynlee Maya Crispin and Greta Albrecht
 """
 from xmlrpc.client import Boolean
 
