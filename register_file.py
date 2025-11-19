@@ -79,7 +79,7 @@ class RegisterFile:
         # Make sure `idx` is in the desired range, otherwise raise an
         # `IndexError` with message "Register index out of bounds!" This
         # method needn't have an explicit return. Replace `pass` below.
-        if idx < 0 or idx > self.NUM_REGISTERS:
+        if idx < 0 or idx > self.NUM_REGISTERS - 1:
             raise IndexError("Register index out of bounds!")
         else:
             return True
@@ -115,11 +115,13 @@ class RegisterFile:
             raise TypeError("Cannot read; single register read should specify `ra`!")
         
         if rb is None and ra is not None:
-            return(self.registers[ra].read(), None)
+            self._check_index(ra)
+            return self.registers[ra].read(), None
         
         if ra is not None and rb is not None:
-            return(self.registers[ra].read(),self.registers[rb].read())
-            
+            self._check_index(ra)
+            self._check_index(rb)
+            return self.registers[ra].read(), self.registers[rb].read()
 
     def _write(self, rd, data):
         """This is called if `write_enable` is `True`. This is how we detect
