@@ -37,10 +37,10 @@ class Memory:
         # Make sure `b` is a Boolean (hint: use `isinstance()).
         # If not, raise `TypeError`. If OK, then set
         # `_write_enable` accordingly. Replace `pass` below.
-        if not isinstance(b, Boolean):
+        if not isinstance(b, bool):
             raise TypeError("Not a Boolean.")
         else:
-            return b
+            self._write_enable = b
 
     def read(self, addr):
         """
@@ -56,14 +56,16 @@ class Memory:
         Write 16-bit word to memory, masking to 16 bits.
         """
         # Check to see if `_write_enable` is true. If not, raise `RuntimeError`.
+        if not self._write_enable:
+            raise RuntimeError("_write_enable False")
+
         # Otherwise, call `_check_addr()`. If OK, write masked value to the
         # selected address, then turn off `_write_enable` when done. Return
         # `True` on success. Replace `pass` below.
-        if not self._write_enable:
-            raise RuntimeError("_write_enable False")
         self._check_addr(addr)
-        # TODO: write masked value to selected address
+        self._cells[addr] = WORD_MASK & value
         self.write_enable(False)
+
         return True
 
     def hexdump(self, start=0, stop=None, width=8):
