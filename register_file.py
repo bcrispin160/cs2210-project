@@ -60,7 +60,16 @@ class RegisterFile:
         # register objects and include them in a list `self.registers`. Note:
         # register objects should each get a unique name, R0, R1, R2, etc.
         # apart from their index in the list. Replace `pass` below.
-        pass
+        self.registers = {
+             Register("R0"),
+             Register("R1"),
+             Register("R2"),
+             Register("R3"),
+             Register("R4"),
+             Register("R5"),
+             Register("R6"),
+             Register("R7"),
+             }
 
     def _check_index(self, idx):
         """
