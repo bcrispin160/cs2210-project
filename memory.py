@@ -45,6 +45,7 @@ class Memory:
             self._write_enable = b
 
     def read(self, addr):
+        """
            Return 16-bit word from memory (default if never written).
         """
         # Make sure `addr` is OK by calling `_check_addr`. If OK, return value
