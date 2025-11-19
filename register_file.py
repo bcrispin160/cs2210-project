@@ -8,8 +8,6 @@ These do not include special-purpose registers elsewhere in the CPU:
 CS 2210 Computer Organization
 Clayton Cafiero <cbcafier@uvm.edu>
 
-Brynlee Maya Crispin and Greta Albrecht
-
 """
 
 from constants import WORD_SIZE
@@ -110,7 +108,18 @@ class RegisterFile:
         # to ensure we have valid indices. It should *always* return a tuple,
         # the first element of which is the value at `ra`, the second element
         # of which is the value at `rb` or `None`. Replace `pass` below.
-        pass
+        if ra is None and rb is None:
+            raise TypeError("Cannot read; no source register(s) specified!")
+        
+        if ra is None and rb is not None:
+            raise TypeError("Cannot read; single register read should specify `ra`!")
+        
+        if rb is None and ra is not None:
+            return(self.registers[ra].read(), None)
+        
+        if ra is not None and rb is not None:
+            return(self.registers[ra].read(),self.registers[rb].read())
+            
 
     def _write(self, rd, data):
         """This is called if `write_enable` is `True`. This is how we detect
@@ -141,8 +150,10 @@ class RegisterFile:
 
         if rd is None:
             raise TypeError("Cannot write; no destination specified!")
+        
         if data is None:
             raise TypeError("Cannot write; no data!")
+        
         self._check_index(rd)
         self.registers[rd].write(data)
 
@@ -174,3 +185,4 @@ if __name__ == "__main__":
     rf.execute(rd=4, data=0xABCD, write_enable=True)
 
     print(rf)
+
