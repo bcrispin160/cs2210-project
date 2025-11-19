@@ -132,7 +132,7 @@ class RegisterFile:
             raise TypeError("Cannot write; no destination specified!")
         if data is None:
             raise TypeError("Cannot write; no data!")
-        if self._check_index(rd):
+        self._check_index(rd)
             # TODO write to register here once __init__ is finished
 
     def execute(self, rd=None, ra=None, rb=None, data=None, write_enable=False):
