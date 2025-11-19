@@ -29,7 +29,7 @@ class Register:
         self.value = 0
 
     def read(self):
-        return self.name
+        return f"{self.name}: {self.value}"
 
     def write(self, value):
         # Registers themselves don't know about write enable. It's the register
