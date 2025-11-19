@@ -38,8 +38,8 @@ class Register:
         # constants here, and raise `ValueError` on bad value, otherwise set
         # the value field. Replace `pass` below.
 
-        if value > self.MAX_VALUE | value < self.MIN_VALUE:
-            raise ValueError("Bad value.")
+        if value > self.MAX_VALUE or value < self.MIN_VALUE:
+            raise ValueError
         else:
             self.value = value
 
@@ -70,7 +70,10 @@ class RegisterFile:
         # Make sure `idx` is in the desired range, otherwise raise an
         # `IndexError` with message "Register index out of bounds!" This
         # method needn't have an explicit return. Replace `pass` below.
-        pass
+        if idx < 0 or idx > self.NUM_REGISTERS:
+            raise IndexError("Register index out of bounds!")
+        else:
+            return True
 
     def _read(self, ra, rb):
         """
@@ -124,7 +127,13 @@ class RegisterFile:
         # method should call `_check_index()` to ensure index is good. If so,
         # it should call `write()` on the appropriate register, as selected by
         # `rd`. Replace `pass` below.
-        pass
+
+        if rd is None:
+            raise TypeError("Cannot write; no destination specified!")
+        if data is None:
+            raise TypeError("Cannot write; no data!")
+        if self._check_index(rd):
+            # TODO write to register here once __init__ is finished
 
     def execute(self, rd=None, ra=None, rb=None, data=None, write_enable=False):
         """
