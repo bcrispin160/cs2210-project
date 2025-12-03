@@ -76,8 +76,8 @@ class Cpu:
                     # complete implementation here
                     rd = self._decoded.rd
                     imm = self._decoded.imm
-                    result = self.sext(imm, 8)
-                    self._regs.execute(rd=rd, data=result, write_enable=True)
+                    imm8 = self.sext(imm, 8)
+                    self._regs.execute(rd=rd, data=imm8, write_enable=True)
                 case "LUI":
                     # TODO Refactor for future semester(s) if any.
                     # Cheating for compatibility with released ALU tests
@@ -184,12 +184,13 @@ class Cpu:
                     offset = self._decoded.imm
                     self._pc += self.sext(offset, 8)  # jump to target
                 case "RET":
+                    # Complete implementation here
                     # Get return address from memory via SP
-                    self._d_mem.read(self._sp)
+                    addr = self._d_mem.read(self._sp)
                     # Increment SP
                     self._sp += 1
                     # Update PC
-                    # TODO: FIND WHAT GOES HERE
+                    self._pc = addr
                 case "HALT":
                     # complete implementation here
                     self._halt = True
