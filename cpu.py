@@ -86,7 +86,14 @@ class Cpu:
                     data = upper | lower
                     self._regs.execute(rd=rd, data=data, write_enable=True)
                 case "LOAD":
-                    pass  # complete implementation here
+                    # complete implementation here
+                    rd = self._decoded.rd
+                    ra = self._decoded.ra
+                    imm = self._decoded.imm
+                    ra_value, _ = self._regs.execute(ra=ra)
+                    addr = ra_value + self.sext(imm, 6)
+                    result = self._d_mem.read(addr)
+                    self._regs.execute(rd=rd, data=result, write_enable=True)
                 case "STORE":
                     pass  # complete implementation here
                 case "ADDI":
