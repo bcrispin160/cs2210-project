@@ -9,11 +9,11 @@ START:
     ADDI R1, R1, #0x01     ; increment R1 by 1
     SHFT  R4, R0, R1       ; shift R0 left by R1 (*2^R1) and store in R4
     ADDI R1, R1, #0x01     ; increment R1 by 1
-    SHFT  R2, R0, R5       ; shift R0 left by R1 (*2^R1) and store in R5
+    SHFT  R5, R0, R1       ; shift R0 left by R1 (*2^R1) and store in R5
     ADDI R1, R1, #0x01     ; increment R1 by 1
-    SHFT  R2, R0, R6       ; shift R0 left by R1 (*2^R1) and store in R6
+    SHFT  R6, R0, R1       ; shift R0 left by R1 (*2^R1) and store in R6
     ADDI R1, R1, #0x01     ; increment R1 by 1
-    SHFT  R2, R0, R7       ; shift R0 left by R1 (*2^R1) and store in R7
+    SHFT  R7, R0, R1       ; shift R0 left by R1 (*2^R1) and store in R7
 
 END:
     HALT
