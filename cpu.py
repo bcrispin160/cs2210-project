@@ -180,9 +180,11 @@ class Cpu:
                     self._pc += self.sext(offset, 8)  # jump to target
                 case "RET":
                     # Get return address from memory via SP
+                    self._d_mem.read(self._sp)
                     # Increment SP
+                    self._sp += 1
                     # Update PC
-                    pass  # complete implementation here
+                    #TODO: FIND WHAT GOES HERE
                 case "HALT":
                     pass  # complete implementation here
                 case _:  # default
