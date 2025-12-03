@@ -189,7 +189,7 @@ class Cpu:
                     # Increment SP
                     self._sp += 1
                     # Update PC
-                    #TODO: FIND WHAT GOES HERE
+                    # TODO: FIND WHAT GOES HERE
                 case "HALT":
                     # complete implementation here
                     self._halt = True
