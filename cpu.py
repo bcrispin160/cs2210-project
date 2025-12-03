@@ -165,9 +165,14 @@ class Cpu:
                         offset = self.sext(self._decoded.imm, 8)
                         self._pc += offset  # take branch
                 case "BNE":
-                    pass  # complete implementation here
+                    # complete implementation here
+                    if not self._alu.zero:
+                        offset = self.sext(self._decoded.imm, 8)
+                        self._pc += offset  # take branch
                 case "B":
-                    pass  # complete implementation here
+                    # complete implementation here
+                    offset = self.sext(self._decoded.imm, 8)
+                    self._pc += offset  # take branch
                 case "CALL":
                     self._sp -= 1  # grow stack downward
                     # PC is incremented immediately upon fetch so already
@@ -186,7 +191,8 @@ class Cpu:
                     # Update PC
                     #TODO: FIND WHAT GOES HERE
                 case "HALT":
-                    pass  # complete implementation here
+                    # complete implementation here
+                    self._halt = True
                 case _:  # default
                     raise ValueError(
                         "Unknown mnemonic: " + str(self._decoded) + "\n" + str(self._ir)
