@@ -73,7 +73,11 @@ class Cpu:
             # execute...
             match self._decoded.mnem:
                 case "LOADI":
-                    pass  # complete implementation here
+                    # complete implementation here
+                    rd = self._decoded.rd
+                    imm = self._decoded.imm
+                    result = self.sext(imm, 8)
+                    self._regs.execute(rd=rd, data=result, write_enable=True)
                 case "LUI":
                     # TODO Refactor for future semester(s) if any.
                     # Cheating for compatibility with released ALU tests
@@ -95,7 +99,13 @@ class Cpu:
                     result = self._d_mem.read(addr)
                     self._regs.execute(rd=rd, data=result, write_enable=True)
                 case "STORE":
-                    pass  # complete implementation here
+                    # complete implementation here
+                    ra = self._decoded.ra
+                    rb = self._decoded.rb
+                    imm = self._decoded.imm
+                    op_a, op_b = self._regs.execute(ra=ra, rb=rb)
+                    addr = op_b + self.sext(imm, 6)
+                    self._d_mem.write(addr, op_a)
                 case "ADDI":
                     # complete implementation here
                     self._alu.set_op("ADD")
