@@ -252,3 +252,13 @@ class Alu:
             self._flags |= N_FLAG
         if result == 0:
             self._flags |= Z_FLAG
+
+    def set_op(self, op):
+        """
+        Public-facing setter. Added 2025-11-09. Students will need to add this
+        to their ALU implementation.
+        """
+        if op in self._ops.keys():
+            self._op = op
+        else:
+            raise ValueError(f"Bad op: {op}")
