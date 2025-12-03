@@ -46,6 +46,10 @@ class Register:
     def __repr__(self):
         return f"{self.name}: {self.value:04X}"
 
+    @property
+    def raw(self):
+        return self.value & 0xFFFF  # always unsigned
+
 
 class RegisterFile:
     """
@@ -174,9 +178,7 @@ class RegisterFile:
         return self._read(ra, rb)  # looks like a read
 
     def __repr__(self):
-        # Notice that this expects a member field `registers`, a list.
-        vals = [str(r) for r in self.registers]
-        return "\n".join(vals)
+        return f"{self.raw:04X}"
 
 
 if __name__ == "__main__":
