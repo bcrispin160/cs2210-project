@@ -101,7 +101,7 @@ class Cpu:
                     # complete implementation here
                     ra = self._decoded.ra
                     rb = self._decoded.rb
-                    imm = self._decoded.imm
+                    imm = self._decoded.imm & 0x3F
                     op_a, op_b = self._regs.execute(ra=ra, rb=rb)
                     addr = op_b + self.sext(imm, 6)
                     self._d_mem.write_enable(True)
