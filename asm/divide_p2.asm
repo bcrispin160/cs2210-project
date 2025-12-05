@@ -1,6 +1,6 @@
 START:
     LOADI   R0, 448        ; original constant
-    LOADI   R1      ;last operand used by SHFT
+    LOADI   R1, 1   ;last operand used by SHFT
     SHFT	R2, R0, R1	;448 / 2^1
 
     LOADI   R1, 2
