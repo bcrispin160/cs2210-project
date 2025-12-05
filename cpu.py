@@ -211,8 +211,8 @@ class Cpu:
     def _fetch(self):
         
         raw = self._i_mem.read(self.pc)
-        self.pc = self.pc + 1
-        self.ir = raw
+        self._pc = self._pc + 1
+        self._ir = raw
 
         return 
 
