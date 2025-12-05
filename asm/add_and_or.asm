@@ -9,12 +9,11 @@ START:
     
 SAFE:
     OR R2, R0, R1
+    HALT
     
 
 UNSAFE:
     LOADI R2, 0
-
-DONE:
     HALT
 
 
