@@ -1,6 +1,6 @@
 START:
-    LOADI   R0, OxAA
-    LOADI	R1, Ox55
+    LOADI   R0, 0xAA
+    LOADI	R1, 0x55
     
     AND R3, R0, R1
     
