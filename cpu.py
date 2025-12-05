@@ -208,7 +208,12 @@ class Cpu:
         self._decoded = Instruction(raw=self._ir)
 
     def _fetch(self):
-        pass  # complete implementation here
+        
+        raw = self._i_mem.read(self.pc)
+        self.pc = self.pc + 1
+        self.ir = raw
+
+        return 
 
     def load_program(self, prog):
         self._i_mem.load_program(prog)
@@ -230,3 +235,4 @@ def make_cpu(prog=None):
         i_mem.load_program(prog)
     regs = RegisterFile()
     return Cpu(alu=alu, d_mem=d_mem, i_mem=i_mem, regs=regs)
+
