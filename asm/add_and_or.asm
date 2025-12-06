@@ -1,9 +1,9 @@
 START:
-    LOADI   R0, #0xAA
-    LOADI	R1, #0x55
+    LOADI R0, #0xAA
+    LOADI R1, #0x55
     AND R3, R0, R1
-    BEQ R3, SAFE
     BNE R3, UNSAFE
+    BEQ R3, SAFE
 SAFE:
     OR R2, R0, R1
     B DONE
