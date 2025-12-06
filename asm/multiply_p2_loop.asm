@@ -9,6 +9,6 @@ LOOP:
    ADDI R2, R2, #1        ; increment memory address
    ADDI R1, R1, #1        ; increment exponent
    ADDI R3, R3, #-1       ; decrement loop counter
-   BNE, R3, LOOP          ; end loop after 9 exponents
+   BNE R3, LOOP           ; end loop after 9 exponents
 DONE:
    HALT
